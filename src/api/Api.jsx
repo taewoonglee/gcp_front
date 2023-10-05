@@ -9,4 +9,5 @@ export const Api = async (url, method, data) => {
         data,
     });
     return body.data;
+
 };

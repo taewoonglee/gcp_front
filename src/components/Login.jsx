@@ -1,9 +1,15 @@
 import {useEffect, useState} from "react";
 import {Api} from "../api/Api";
+import '../css/login.css'
+import {useNavigate} from "react-router";
+import {Link} from "react-router-dom";
 
 const Login =() =>{
+    const nav = useNavigate();
+
+    const [userlist, setList] = useState([]);
     const [user, setUser] =useState({
-        name:"", descc:""
+        name:"", description:""
     })
 
     const onChangeHandler = (e)=> {
@@ -16,26 +22,38 @@ const Login =() =>{
     }
 
     const login2 = async () =>{
-        await Api(`api/v1/user`,"POST",user)
+        await Api(`api`,"POST",user)
     }
     const getLoginData = async () =>{
-        const {data} = await Api(`api/v1/user`,"GET")
-        setUser(data);
+        const loginData = await Api(`api`,"GET")
+        setList(loginData);
     }
 
-    // useEffect(() => {
-    //
-    //
-    //     getLoginData()
-    //
-    //
-    // }, []);
+    useEffect(() => {
+
+
+        getLoginData()
+
+
+    }, []);
 
 
     return <form onSubmit={onSubmitHandler}>
         <input name={"name"} value={user.name} onChange={onChangeHandler}/>
-        <input name={"descc"} value={user.descc} onChange={onChangeHandler}/>
-        <input type='submit' />
+        <input name={"description"} value={user.description} onChange={onChangeHandler}/>
+        <input type={"submit"} />
+        {userlist.map((userlist, idx) =>
+            <div key={idx} >
+                <div className={"div-set"}>
+                    <p>{idx}</p>
+                    <p>{userlist.name}</p>
+                    <p>{userlist.description}</p>
+                </div>
+            </div>
+
+
+        )}
     </form>
+
 }
 export default Login;
