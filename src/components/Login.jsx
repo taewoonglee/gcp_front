@@ -1,11 +1,10 @@
 import {useEffect, useState} from "react";
 import {Api} from "../api/Api";
 import '../css/login.css'
-import {useNavigate} from "react-router";
-import {Link} from "react-router-dom";
+
 
 const Login =() =>{
-    const nav = useNavigate();
+
 
     const [userlist, setList] = useState([]);
     const [user, setUser] =useState({
